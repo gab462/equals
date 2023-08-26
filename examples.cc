@@ -1,4 +1,4 @@
-#include "eq.hh"
+#include "equals.hh"
 
 #include <cstdio>
 
@@ -48,4 +48,10 @@ main () -> int {
   eq::optional<int> o = 4;
 
   printf ("o: %d\n", *o);
+
+  eq::string s = "Hello, ";
+
+  eq::string s2 = s.append("World!");
+
+  printf ("%s: %zu\n", s2.data, s2.length);
 }

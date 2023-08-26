@@ -8,11 +8,13 @@ namespace eq {
 #include "array.hh"
 #include "vector.hh"
 #include "list.hh"
+#include "string.hh"
 
 #include "pointer.cc"
 #include "optional.cc"
 #include "array.cc"
 #include "vector.cc"
 #include "list.cc"
+#include "string.cc"
 
 }
