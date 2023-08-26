@@ -44,7 +44,7 @@ list<T> :: in (size_t n) -> optional<T> {
   if (elem.ok == false)
     return {};
 
-  return elem.data;
+  return *elem;
 }
 
 template <typename T> auto
@@ -75,12 +75,14 @@ list<T> :: insert (size_t n, T obj) -> void {
 
   auto node = *elem;
 
-  auto next = node->next;
-  node->next = new list_node<T> {obj, next};
+  node->next = new list_node<T> {obj, node->next};
 }
 
 template <typename T> auto
 list<T> :: remove (size_t n) -> void {
+  if (this->length == 0)
+    return;
+
   if (n == 0) {
     auto node = this->head;
 
@@ -100,7 +102,7 @@ list<T> :: remove (size_t n) -> void {
 
   auto elem = this->node (n - 1);
 
-  if (!elem.ok)
+  if (elem.ok == false)
     return;
 
   auto node = *elem;
@@ -109,6 +111,7 @@ list<T> :: remove (size_t n) -> void {
     return;
 
   auto removed = node->next;
+
   node->next = removed->next;
 
   delete removed;
