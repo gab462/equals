@@ -71,7 +71,7 @@ list<T> :: insert (size_t n, T obj) -> void {
   auto elem = this->node (n - 1);
 
   if (elem.ok == false)
-    return;
+    assert (false && "Attempt to insert in invalid index");
 
   auto node = *elem;
 
@@ -81,7 +81,7 @@ list<T> :: insert (size_t n, T obj) -> void {
 template <typename T> auto
 list<T> :: remove (size_t n) -> void {
   if (this->length == 0)
-    return;
+    assert (false && "Attemp to remove empty list");
 
   if (n == 0) {
     auto node = this->head;
@@ -103,12 +103,12 @@ list<T> :: remove (size_t n) -> void {
   auto elem = this->node (n - 1);
 
   if (elem.ok == false)
-    return;
+    assert (false && "Attempt to remove invalid list index");
 
   auto node = *elem;
 
   if (node->next == nullptr)
-    return;
+    assert (false && "Attempt to remove invalid list index");
 
   auto removed = node->next;
 
