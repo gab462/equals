@@ -14,10 +14,11 @@ struct list {
   auto end () -> list_iterator<T>;
 
   auto size () -> size_t;
+  auto operator[] (size_t n) -> T&;
   auto in (size_t n) -> optional<T>;
   auto node (size_t n) -> optional<list_node<T>*>;
-  auto append (T obj) -> void;
-  auto insert (size_t n, T obj) -> void;
+  auto append (T obj) -> T&;
+  auto insert (size_t n, T obj) -> T&;
   auto remove (size_t n) -> void;
 };
 

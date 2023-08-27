@@ -3,7 +3,7 @@
 #include <cstdio>
 
 auto
-main () -> int {
+main (int argc, char** argv) -> int {
   eq::list<int> l;
 
   l.append (0);
@@ -41,17 +41,31 @@ main () -> int {
 
   eq::pointer<int> i {3};
 
-  printf ("i: %d\n", *i);
-
-  printf ("\n");
+  printf ("i: %d\n\n", *i);
 
   eq::optional<int> o = 4;
 
-  printf ("o: %d\n", *o);
+  printf ("o: %d\n\n", *o);
 
   eq::string s = "Hello, ";
 
   eq::string s2 = s.append("World!");
 
-  printf ("%s: %zu\n", s2.data, s2.length);
+  printf ("%s: %zu\n\n", s2.data, s2.length);
+
+  eq::argument_parser args;
+
+  auto& input = args.input ();
+  auto& h = args.flag ('h');
+  auto& c = args.int_option ('c', 10);
+  auto& so = args.string_option ('o');
+
+  args.parse (argc, argv);
+
+  printf ("input: %s\n", input.data);
+  printf ("-h: %d\n", h);
+  printf ("-c: %d\n", c);
+  printf ("-o: %s\n", so.data);
+
+  printf ("\n");
 }

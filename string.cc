@@ -1,3 +1,5 @@
+string_view :: string_view (): data {nullptr}, length {0} {}
+
 string_view :: string_view (const char* s): data {s} {
   this->length = 0;
 
@@ -7,7 +9,7 @@ string_view :: string_view (const char* s): data {s} {
 
 string_view :: string_view (string& s): data {s.data}, length {s.length} {}
 
-string_view :: string_view (string& s, size_t n): data {s.data}, length {n} {}
+string_view :: string_view (string_view s, size_t n): data {s.data}, length {n} {}
 
 string :: string (const char *s) {
   size_t n = this->len (s);
@@ -61,4 +63,40 @@ string :: copy (string_view other, size_t offset) -> void {
 auto
 string :: len (string_view s) -> size_t {
   return s.length;
+}
+
+auto
+string :: to_int (string_view s) -> int {
+  auto power = [] (int n, int to) {
+    if (to == 0)
+      return 1;
+
+    int res = n;
+
+    for (int i = 1; i < to; ++i) {
+      res *= n;
+    }
+
+    return res;
+  };
+
+  // If minus at beginning, exclude from string
+  auto number = s.data[0] == '-' ? string_view {s.data + 1, s.length - 1} : s;
+
+  int r = 0;
+
+  for (size_t i = 0; i < number.length; ++i) {
+    auto c = number.data[number.length - 1 - i];
+
+    if (c < '0' || c > '9')
+      assert (false && "Invalid character");
+
+    r += (c - '0') * power (10, i);
+  }
+
+  // If had minus at the beginning, turn negative
+  if (s.data != number.data)
+    r *= -1;
+
+  return r;
 }

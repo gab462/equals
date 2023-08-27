@@ -24,6 +24,27 @@ list<T> :: size () -> size_t {
 }
 
 template <typename T> auto
+list<T> :: operator[] (size_t n) -> T& {
+  auto elem = this->node (n);
+
+  auto node = *elem;
+
+  return node->data;
+}
+
+template <typename T> auto
+list<T> :: in (size_t n) -> optional<T> {
+  auto elem = this->node (n);
+
+  if (elem.ok == false)
+    return {};
+
+  auto node = *elem;
+
+  return node.data;
+}
+
+template <typename T> auto
 list<T> :: node (size_t n) -> optional<list_node<T>*> {
   auto elem = this->head;
 
@@ -38,17 +59,7 @@ list<T> :: node (size_t n) -> optional<list_node<T>*> {
 }
 
 template <typename T> auto
-list<T> :: in (size_t n) -> optional<T> {
-  auto elem = this->node (n);
-
-  if (elem.ok == false)
-    return {};
-
-  return *elem;
-}
-
-template <typename T> auto
-list<T> :: append (T obj) -> void {
+list<T> :: append (T obj) -> T& {
   if (this->length == 0) {
     this->head = new list_node<T> {obj, nullptr};
     this->tail = this->head;
@@ -58,14 +69,16 @@ list<T> :: append (T obj) -> void {
   }
 
   ++this->length;
+
+  return this->tail->data;
 }
 
 template <typename T> auto
-list<T> :: insert (size_t n, T obj) -> void {
+list<T> :: insert (size_t n, T obj) -> T& {
   if (n == 0) {
     this->head = new list_node<T> {obj, this->head};
 
-    return;
+    return this->head->data;
   }
 
   auto elem = this->node (n - 1);
@@ -76,6 +89,8 @@ list<T> :: insert (size_t n, T obj) -> void {
   auto node = *elem;
 
   node->next = new list_node<T> {obj, node->next};
+
+  return node->next->data;
 }
 
 template <typename T> auto

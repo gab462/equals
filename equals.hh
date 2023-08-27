@@ -9,6 +9,7 @@ namespace eq {
 #include "vector.hh"
 #include "list.hh"
 #include "string.hh"
+#include "argument_parser.hh"
 
 #include "pointer.cc"
 #include "optional.cc"
@@ -16,5 +17,6 @@ namespace eq {
 #include "vector.cc"
 #include "list.cc"
 #include "string.cc"
+#include "argument_parser.cc"
 
 }
