@@ -8,6 +8,9 @@ struct string_view {
   string_view (const char* s);
   string_view (string& s);
   string_view (string_view s, size_t n);
+
+  auto size () -> size_t;
+  auto with_null () -> string;
 };
 
 struct string {
@@ -23,6 +26,7 @@ struct string {
   auto size () -> size_t;
   auto append (string_view other) -> string;
   auto copy (string_view src, size_t offset = 0) -> void;
+  auto with_null () -> string;
   // auto split (char sep) -> list<string_view>;
 
   static auto len (string_view s) -> size_t;

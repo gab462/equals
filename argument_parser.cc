@@ -29,16 +29,15 @@ argument_parser :: string_option (char option, string_view default_value) -> str
 
 auto
 argument_parser :: parse (int argc, char** argv) -> void {
-  size_t input = 0;
+  size_t input_n = 0;
 
   for (int i = 1; i < argc; ++i) {
     string_view arg = argv[i];
 
     if (arg.data[0] != '-') {
-      if (input >= this->inputs.size ())
-        assert (false && "Too many arguments");
+      assert (input_n < this->inputs.size () && "Too many arguments");
 
-      this->inputs[input++] = arg;
+      this->inputs[input_n++] = arg;
     } else {
       // FIXME: Less ugly way to do this
 
@@ -58,8 +57,7 @@ argument_parser :: parse (int argc, char** argv) -> void {
 
       for (auto& option: this->int_options) {
         if (arg.data[1] == option.option) {
-          if (i + 1 >= argc)
-            assert (false && "Option provided without value");
+          assert (i + 1 < argc && "Option provided without value");
 
           string_view value = argv[++i];
           option.data = string::to_int (value);
@@ -74,8 +72,7 @@ argument_parser :: parse (int argc, char** argv) -> void {
 
       for (auto& option: this->string_options) {
         if (arg.data[1] == option.option) {
-          if (i + 1 >= argc)
-            assert (false && "Option provided without value");
+          assert (i + 1 < argc && "Option provided without value");
 
           string_view value = argv[++i];
           option.data = value;
@@ -92,4 +89,6 @@ argument_parser :: parse (int argc, char** argv) -> void {
       assert (false && "Unknown argument");
     }
   }
+
+  assert (input_n == this->inputs.size () && "Not enough arguments");
 }

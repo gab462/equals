@@ -4,12 +4,28 @@ string_view :: string_view (const char* s): data {s} {
   this->length = 0;
 
   while (*s++ != '\0')
-    ++length;
+    ++this->length;
 }
 
 string_view :: string_view (string& s): data {s.data}, length {s.length} {}
 
 string_view :: string_view (string_view s, size_t n): data {s.data}, length {n} {}
+
+auto
+string_view :: size () -> size_t {
+  return this->length;
+}
+
+auto
+string_view :: with_null () -> string {
+  string s {this->length + 1};
+
+  s.copy (*this);
+
+  s.data[this->length] = '\0';
+
+  return s;
+}
 
 string :: string (const char *s) {
   size_t n = this->len (s);
@@ -56,8 +72,21 @@ string :: append (string_view other) -> string {
 
 auto
 string :: copy (string_view other, size_t offset) -> void {
-  for (size_t i = offset; i < other.length + offset; ++i)
-    this->data[i] = other.data[i - offset];
+  assert (this->length >= other.length + offset && "Not enough space");
+
+  for (size_t i = 0; i < other.length; ++i)
+    this->data[i + offset] = other.data[i];
+}
+
+auto
+string :: with_null () -> string {
+  string s {this->length + 1};
+
+  s.copy (*this);
+
+  s.data[this->length] = '\0';
+
+  return s;
 }
 
 auto
@@ -88,8 +117,7 @@ string :: to_int (string_view s) -> int {
   for (size_t i = 0; i < number.length; ++i) {
     auto c = number.data[number.length - 1 - i];
 
-    if (c < '0' || c > '9')
-      assert (false && "Invalid character");
+    assert (c >= '0' && c <= '9' && "Invalid character");
 
     r += (c - '0') * power (10, i);
   }

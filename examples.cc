@@ -51,7 +51,7 @@ main (int argc, char** argv) -> int {
 
   eq::string s2 = s.append("World!");
 
-  printf ("%s: %zu\n\n", s2.data, s2.length);
+  printf ("%s: %zu\n\n", s2.with_null ().data, s2.length);
 
   eq::argument_parser args;
 
@@ -62,10 +62,10 @@ main (int argc, char** argv) -> int {
 
   args.parse (argc, argv);
 
-  printf ("input: %s\n", input.data);
+  printf ("input: %s\n", input.with_null ().data);
   printf ("-h: %d\n", h);
   printf ("-c: %d\n", c);
-  printf ("-o: %s\n", so.data);
+  printf ("-o: %s\n", so.with_null ().data);
 
   printf ("\n");
 }
