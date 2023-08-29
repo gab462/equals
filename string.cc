@@ -11,6 +11,8 @@ string_view :: string_view (string& s): ptr {s.data}, length {s.length} {}
 
 string_view :: string_view (string_view s, size_t n): ptr {s.ptr}, length {n} {}
 
+string_view :: string_view (const char* s, size_t n): ptr {s}, length {n} {}
+
 auto
 string_view :: size () -> size_t {
   return this->length;
@@ -18,10 +20,10 @@ string_view :: size () -> size_t {
 
 auto
 string_view :: operator== (string_view other) -> bool {
-  if (this->size() != other.size())
+  if (this->length != other.length)
     return false;
 
-  for (size_t i = 0; i < this->size(); ++i) {
+  for (size_t i = 0; i < this->length; ++i) {
     if (this->ptr[i] != other.ptr[i])
       return false;
   }
@@ -33,14 +35,14 @@ auto
 string_view :: contains (string_view other) -> bool {
   size_t match = 0;
 
-  for (size_t i = 0; i < this->size(); ++i) {
+  for (size_t i = 0; i < this->length; ++i) {
     if (this->ptr[i] == other.ptr[match]) {
       ++match;
     } else {
       match = this->ptr[i] == other.ptr[0] ? 1 : 0;
     }
 
-    if (match == other.size())
+    if (match == other.length)
       return true;
   }
 
@@ -52,14 +54,51 @@ string_view :: split (char sep) -> list<string_view> {
   size_t start = 0;
   list<string_view> res;
 
-  for (size_t i = 0; i < this->size(); ++i) {
-    if (this->ptr[i] == sep || i + 1 == this->size()) {
-      res.append({this->ptr + start, i - start});
+  for (size_t i = 0; i < this->length; ++i) {
+    if (this->ptr[i] == sep) {
+      res.append ({this->ptr + start, i - start});
       start = i + 1;
+    }
+
+    if (i + 1 == this->length) {
+      res.append ({this->ptr + start, this->length - start});
     }
   }
 
   return res;
+}
+
+auto
+string_view :: trim () -> string_view {
+  if (this->length == 0)
+    return {this->ptr, this->length};
+
+  auto is_whitespace = [](char c) {
+    return c == ' ' || c == '\t' || c == '\n';
+  };
+
+  size_t left;
+
+  for (size_t i = 0; i < this->length; ++i) {
+    if (!is_whitespace (this->ptr[i])) {
+      left = i;
+      break;
+    }
+  }
+
+  if (left == this->length) // All whitespace
+    return {this->ptr, 0};
+
+  size_t right;
+
+  for (size_t i = 0; i < this->length; ++i) {
+    if (!is_whitespace (this->ptr[this->length - 1 - i])) {
+      right = i;
+      break;
+    }
+  }
+
+  return {this->ptr + left, this->length - left - right};
 }
 
 auto

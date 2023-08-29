@@ -74,7 +74,7 @@ main (int argc, char** argv) -> int {
 
   printf("\n");
 
-  for (auto s3: s2.split(','))
+  for (auto s3: input.split(','))
     printf("split: %s \n", s3.with_null ().data);
 
   printf("\n");
