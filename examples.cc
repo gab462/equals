@@ -68,4 +68,14 @@ main (int argc, char** argv) -> int {
   printf ("-o: %s\n", so.with_null ().data);
 
   printf ("\n");
+
+  printf ("equal: %d\n", s2 == input);
+  printf ("contains: %d\n", s2.contains(input));
+
+  printf("\n");
+
+  for (auto s3: s2.split(','))
+    printf("split: %s \n", s3.with_null ().data);
+
+  printf("\n");
 }

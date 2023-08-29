@@ -34,7 +34,7 @@ argument_parser :: parse (int argc, char** argv) -> void {
   for (int i = 1; i < argc; ++i) {
     string_view arg = argv[i];
 
-    if (arg.data[0] != '-') {
+    if (arg.ptr[0] != '-') {
       assert (input_n < this->inputs.size () && "Too many arguments");
 
       this->inputs[input_n++] = arg;
@@ -44,7 +44,7 @@ argument_parser :: parse (int argc, char** argv) -> void {
       bool processed = false;
 
       for (auto& option: this->flags) {
-        if (arg.data[1] == option.option) {
+        if (arg.ptr[1] == option.option) {
           option.data = !option.data;
 
           processed = true;
@@ -56,11 +56,11 @@ argument_parser :: parse (int argc, char** argv) -> void {
         continue;
 
       for (auto& option: this->int_options) {
-        if (arg.data[1] == option.option) {
+        if (arg.ptr[1] == option.option) {
           assert (i + 1 < argc && "Option provided without value");
 
           string_view value = argv[++i];
-          option.data = string::to_int (value);
+          option.data = value.to_int();
 
           processed = true;
           break;
@@ -71,7 +71,7 @@ argument_parser :: parse (int argc, char** argv) -> void {
         continue;
 
       for (auto& option: this->string_options) {
-        if (arg.data[1] == option.option) {
+        if (arg.ptr[1] == option.option) {
           assert (i + 1 < argc && "Option provided without value");
 
           string_view value = argv[++i];
@@ -82,11 +82,8 @@ argument_parser :: parse (int argc, char** argv) -> void {
         }
       }
 
-      if (processed)
-        continue;
-
       // Option in none of the lists, invalid
-      assert (false && "Unknown argument");
+      assert (processed && "Unknown argument");
     }
   }
 
