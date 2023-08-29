@@ -27,6 +27,8 @@ template <typename T> auto
 list<T> :: operator[] (size_t n) -> T& {
   auto elem = this->node (n);
 
+  assert (elem.ok && "Invalid index");
+
   auto node = *elem;
 
   return node->data;

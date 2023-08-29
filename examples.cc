@@ -49,7 +49,7 @@ main (int argc, char** argv) -> int {
 
   eq::string s = "Hello, ";
 
-  eq::string s2 = s.append("World!");
+  eq::string s2 = s.append ("World!");
 
   printf ("%s: %zu\n\n", s2.with_null ().data, s2.length);
 
@@ -70,12 +70,12 @@ main (int argc, char** argv) -> int {
   printf ("\n");
 
   printf ("equal: %d\n", s2 == input);
-  printf ("contains: %d\n", s2.contains(input));
+  printf ("contains: %d\n", s2.contains (input));
 
-  printf("\n");
+  printf ("\n");
 
-  for (auto s3: input.split(','))
-    printf("split: %s \n", s3.trim().with_null ().data);
+  for (auto s3: input.split (','))
+    printf ("split: %s \n", s3.trim ().with_null ().data);
 
-  printf("\n");
+  printf ("\n");
 }

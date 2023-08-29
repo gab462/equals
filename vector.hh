@@ -1,4 +1,4 @@
-// TODO: resize(size_t n)
+// TODO: resize (size_t n)
 
 template <typename T>
 struct vector {

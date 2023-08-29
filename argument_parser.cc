@@ -60,7 +60,7 @@ argument_parser :: parse (int argc, char** argv) -> void {
           assert (i + 1 < argc && "Option provided without value");
 
           string_view value = argv[++i];
-          option.data = value.to_int();
+          option.data = value.to_int ();
 
           processed = true;
           break;
@@ -83,7 +83,7 @@ argument_parser :: parse (int argc, char** argv) -> void {
       }
 
       // Option in none of the lists, invalid
-      assert (processed && "Unknown argument");
+      assert (processed && "Unknown option");
     }
   }
 
