@@ -77,7 +77,7 @@ string_view :: trim () -> string_view {
     return c == ' ' || c == '\t' || c == '\n';
   };
 
-  size_t left = 0;
+  int left = -1;
 
   for (size_t i = 0; i < this->length; ++i) {
     if (!is_whitespace (this->ptr[i])) {
@@ -86,10 +86,10 @@ string_view :: trim () -> string_view {
     }
   }
 
-  if (left == this->length) // All whitespace
+  if (left == -1) // All whitespace
     return {this->ptr, 0};
 
-  size_t right = 0;
+  size_t right;
 
   for (size_t i = 0; i < this->length; ++i) {
     if (!is_whitespace (this->ptr[this->length - 1 - i])) {
