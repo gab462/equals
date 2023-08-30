@@ -1,6 +1,6 @@
-#include "equals.hh"
-
-#include <cstdio>
+#include "data.hh"
+#include "arguments.hh"
+#include "print.hh"
 
 auto
 main (int argc, char** argv) -> int {
@@ -14,10 +14,10 @@ main (int argc, char** argv) -> int {
   l.insert (1, 1);
 
   for (auto& e: l) {
-    printf ("l: %d\n", e);
+    eq::println ("l:", e);
   }
 
-  printf ("\n");
+  eq::println ();
 
   eq::vector<int> v {3};
 
@@ -26,32 +26,36 @@ main (int argc, char** argv) -> int {
   v[2] = 2;
 
   for (auto& e: v) {
-    printf ("v: %d\n", e);
+    eq::println ("v:", e);
   }
 
-  printf ("\n");
+  eq::println ();
 
   eq::array<int, 3> a = {0, 1, 2};
 
   for (auto& e: a) {
-    printf ("a: %d\n", e);
+    eq::println ("a:", e);
   }
 
-  printf ("\n");
+  eq::println ();
 
   eq::pointer<int> i {3};
 
-  printf ("i: %d\n\n", *i);
+  eq::println ("i:", *i);
 
   eq::optional<int> o = 4;
 
-  printf ("o: %d\n\n", *o);
+  eq::println ("o:", *o);
+
+  eq::println ();
 
   eq::string s = "Hello, ";
 
   eq::string s2 = s.append ("World!");
 
-  printf ("%s: %zu\n\n", s2.with_null ().data, s2.length);
+  eq::println (s2, s2.length);
+
+  eq::println ();
 
   eq::argument_parser args;
 
@@ -62,20 +66,18 @@ main (int argc, char** argv) -> int {
 
   args.parse (argc, argv);
 
-  printf ("input: %s\n", input.with_null ().data);
-  printf ("-h: %d\n", h);
-  printf ("-c: %d\n", c);
-  printf ("-o: %s\n", so.with_null ().data);
+  eq::println ("input:", input);
+  eq::println ("-h:", h);
+  eq::println ("-c:", c);
+  eq::println ("-o:", so);
 
-  printf ("\n");
+  eq::println ();
 
-  printf ("equal: %d\n", s2 == input);
-  printf ("contains: %d\n", s2.contains (input));
+  eq::println ("equal:", s2 == input);
+  eq::println ("contains:", s2.contains (input));
 
-  printf ("\n");
+  eq::println ();
 
   for (auto s3: input.split (','))
-    printf ("split: %s \n", s3.trim ().with_null ().data);
-
-  printf ("\n");
+    eq::println ("split:", s3.trim ());
 }
