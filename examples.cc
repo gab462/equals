@@ -4,6 +4,38 @@
 
 auto
 main (int argc, char** argv) -> int {
+  eq::argument_parser args;
+
+  auto& input = args.input ();
+  auto& h = args.flag ('h');
+  auto& c = args.int_option ('c', 10);
+  auto& so = args.string_option ('o');
+
+  args.parse (argc, argv);
+
+  eq::println ("input:", input);
+  eq::println ("-h:", h);
+  eq::println ("-c:", c);
+  eq::println ("-o:", so);
+
+  eq::println ();
+
+  eq::string s = "Hello, ";
+
+  eq::string s2 = s.append ("World!");
+
+  eq::println (s2, s2.length);
+
+  eq::println ();
+
+  eq::println ("equal:", s2 == input);
+  eq::println ("contains:", s2.contains (input));
+
+  eq::println ();
+
+  for (auto s3: input.split (','))
+    eq::println ("split:", s3.trim ());
+
   eq::list<int> l;
 
   l.append (0);
@@ -46,38 +78,4 @@ main (int argc, char** argv) -> int {
   eq::optional<int> o = 4;
 
   eq::println ("o:", *o);
-
-  eq::println ();
-
-  eq::string s = "Hello, ";
-
-  eq::string s2 = s.append ("World!");
-
-  eq::println (s2, s2.length);
-
-  eq::println ();
-
-  eq::argument_parser args;
-
-  auto& input = args.input ();
-  auto& h = args.flag ('h');
-  auto& c = args.int_option ('c', 10);
-  auto& so = args.string_option ('o');
-
-  args.parse (argc, argv);
-
-  eq::println ("input:", input);
-  eq::println ("-h:", h);
-  eq::println ("-c:", c);
-  eq::println ("-o:", so);
-
-  eq::println ();
-
-  eq::println ("equal:", s2 == input);
-  eq::println ("contains:", s2.contains (input));
-
-  eq::println ();
-
-  for (auto s3: input.split (','))
-    eq::println ("split:", s3.trim ());
 }
