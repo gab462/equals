@@ -61,7 +61,7 @@ main (int argc, char** argv) -> int {
 
   eq::println ();
 
-  eq::array<int, 3> a = {0, 1, 2};
+  eq::array<int, 3> a {0, 1, 2};
 
   for (auto& e: a) {
     eq::println ("a:", e);

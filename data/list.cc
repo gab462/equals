@@ -96,7 +96,7 @@ list<T> :: insert (size_t n, T obj) -> T& {
 
 template <typename T> auto
 list<T> :: remove (size_t n) -> void {
-  assert (this->length > 0 && "Attemp to remove empty list");
+  assert (this->length > 0 && "Attempt to remove empty list");
 
   if (n == 0) {
     auto node = this->head;

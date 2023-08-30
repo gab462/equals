@@ -43,7 +43,7 @@ vector<T> :: in (size_t n) -> optional<T> {
 }
 
 template <typename T> auto
-vector<T> :: resize (size_t n)-> void {
+vector<T> :: resize (size_t n) -> void {
   T* tmp = new T[n];
 
   if (this->data != nullptr) {

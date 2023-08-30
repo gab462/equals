@@ -164,6 +164,7 @@ string :: string (const char *s): string_view {s} {
 }
 
 string :: string (string& other): string_view {other} {
+  // Copy data instead of pointer
   this->data = new char[other.length];
   this->ptr = this->data;
 
