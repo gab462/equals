@@ -6,6 +6,7 @@ struct vector {
   size_t length;
 
   vector (size_t n);
+  template <typename B, typename ...A> vector (B v1, B v2, A... rest);  // At least 2 arguments
   ~ vector ();
 
   auto begin () -> T*;

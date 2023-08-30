@@ -4,6 +4,13 @@ vector<T> :: vector (size_t n): length {n} {
 }
 
 template <typename T>
+template <typename B, typename ...A>
+vector<T> :: vector (B v1, B v2, A... rest) {
+  this->length = sizeof ...(rest) + 2;
+  this->data = new T[this->length] {v1, v2, rest...};
+}
+
+template <typename T>
 vector<T> :: ~ vector () {
   delete [] this->data;
 }

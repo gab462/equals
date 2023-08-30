@@ -36,6 +36,8 @@ main (int argc, char** argv) -> int {
   for (auto s3: input.split (','))
     eq::println ("split:", s3.trim ());
 
+  eq::println ();
+
   eq::list<int> l;
 
   l.append (0);
@@ -51,11 +53,7 @@ main (int argc, char** argv) -> int {
 
   eq::println ();
 
-  eq::vector<int> v {3};
-
-  v[0] = 0;
-  v[1] = 1;
-  v[2] = 2;
+  eq::vector<int> v {0, 1, 2};
 
   for (auto& e: v) {
     eq::println ("v:", e);
