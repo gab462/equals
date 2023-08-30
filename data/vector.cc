@@ -43,10 +43,19 @@ vector<T> :: in (size_t n) -> optional<T> {
 }
 
 template <typename T> auto
-vector<T> :: resize (size_t n) -> void {
-  if (this->data != nullptr)
-    delete [] this->data;
+vector<T> :: resize (size_t n)-> void {
+  T* tmp = new T[n];
 
-  this->data = new T[n];
+  if (this->data != nullptr) {
+    auto copied = this->length < n ? this->length : n;
+
+    for (size_t i = 0; i < copied; ++i) {
+      tmp[i] = this->data[i];
+    }
+
+    delete [] this->data;
+  }
+
+  this->data = tmp;
   this->length = n;
 }
