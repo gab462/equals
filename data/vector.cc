@@ -1,13 +1,12 @@
 template <typename T>
-vector<T> :: vector (size_t n): length {n} {
-  this->data = new T[n];
-}
+template <typename ...A>
+vector<T> :: vector (A... values) {
+  this->length = sizeof ...(values);
 
-template <typename T>
-template <typename B, typename ...A>
-vector<T> :: vector (B v1, B v2, A... rest) {
-  this->length = sizeof ...(rest) + 2;
-  this->data = new T[this->length] {v1, v2, rest...};
+  if (this->length > 0)
+    this->data = new T[this->length] {values...};
+  else
+    this->data = nullptr;
 }
 
 template <typename T>
@@ -41,4 +40,13 @@ vector<T> :: in (size_t n) -> optional<T> {
     return {};
 
   return this->data[n];
+}
+
+template <typename T> auto
+vector<T> :: resize (size_t n) -> void {
+  if (this->data != nullptr)
+    delete [] this->data;
+
+  this->data = new T[n];
+  this->length = n;
 }
