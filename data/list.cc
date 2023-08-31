@@ -9,6 +9,17 @@ list<T> :: ~ list () {
 }
 
 template <typename T> auto
+list<T> :: operator[] (size_t n) -> T& {
+  auto elem = this->node (n);
+
+  assert (elem.ok && "Invalid index");
+
+  auto nd = *elem;
+
+  return nd->data;
+}
+
+template <typename T> auto
 list<T> :: begin () -> list_iterator<T> {
   return list_iterator<T> {this->head};
 }
@@ -24,26 +35,15 @@ list<T> :: size () -> size_t {
 }
 
 template <typename T> auto
-list<T> :: operator[] (size_t n) -> T& {
-  auto elem = this->node (n);
-
-  assert (elem.ok && "Invalid index");
-
-  auto node = *elem;
-
-  return node->data;
-}
-
-template <typename T> auto
 list<T> :: in (size_t n) -> optional<T> {
   auto elem = this->node (n);
 
   if (elem.ok == false)
     return {};
 
-  auto node = *elem;
+  auto nd = *elem;
 
-  return node.data;
+  return nd.data;
 }
 
 template <typename T> auto
@@ -87,13 +87,13 @@ list<T> :: insert (size_t n, T obj) -> T& {
 
   assert (elem.ok && "Attempt to insert in invalid index");
 
-  auto node = *elem;
+  auto nd = *elem;
 
-  node->next = new list_node<T> {obj, node->next};
+  nd->next = new list_node<T> {obj, nd->next};
 
   ++this->length;
 
-  return node->next->data;
+  return nd->next->data;
 }
 
 template <typename T> auto
@@ -101,7 +101,7 @@ list<T> :: remove (size_t n) -> void {
   assert (this->length > 0 && "Attempt to remove empty list");
 
   if (n == 0) {
-    auto node = this->head;
+    auto nd = this->head;
 
     if (this->length == 1) {
       this->head = nullptr;
@@ -110,7 +110,7 @@ list<T> :: remove (size_t n) -> void {
       this->head = this->head->next;
     }
 
-    delete node;
+    delete nd;
 
     --this->length;
 
@@ -121,13 +121,13 @@ list<T> :: remove (size_t n) -> void {
 
   assert (elem.ok && "Attempt to remove invalid list index");
 
-  auto node = *elem;
+  auto nd = *elem;
 
-  assert (node->next != nullptr && "Attempt to remove invalid list index");
+  assert (nd->next != nullptr && "Attempt to remove invalid list index");
 
-  auto removed = node->next;
+  auto removed = nd->next;
 
-  node->next = removed->next;
+  nd->next = removed->next;
 
   delete removed;
 
@@ -147,6 +147,6 @@ list_iterator<T> :: operator* () -> T& {
 }
 
 template <typename T> auto
-list_iterator<T> :: operator!= (list_iterator<T>& other) -> bool {
+list_iterator<T> :: operator!= (list_iterator<T> const& other) -> bool {
   return this->node != other.node;
 }

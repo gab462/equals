@@ -1,4 +1,9 @@
 template <typename T, size_t N> auto
+array<T, N> :: operator[] (size_t n) -> T& {
+  return this->data[n];
+}
+
+template <typename T, size_t N> auto
 array<T, N> :: begin () -> T* {
   return &this->data[0];
 }
@@ -11,11 +16,6 @@ array<T, N> :: end () -> T* {
 template <typename T, size_t N> auto
 array<T, N> :: size () -> size_t {
   return N;
-}
-
-template <typename T, size_t N> auto
-array<T, N> :: operator[] (size_t n) -> T& {
-  return this->data[n];
 }
 
 template <typename T, size_t N> auto

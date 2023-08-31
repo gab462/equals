@@ -10,8 +10,29 @@ vector<T> :: vector (A... values) {
 }
 
 template <typename T>
+vector<T> :: vector (vector& other): length {other.length} {
+  for (size_t i = 0; i < other.length; ++i) {
+    this->data[i] = other.data[i];
+  }
+}
+
+template <typename T>
 vector<T> :: ~ vector () {
   delete [] this->data;
+}
+
+template <typename T> auto
+vector<T> :: operator[] (size_t n) -> T& {
+  return this->data[n];
+}
+
+template <typename T> auto
+vector<T> :: operator= (vector const& other) -> void {
+  this->resize (other.length);
+
+  for (size_t i = 0; i < other.length; ++i) {
+    this->data[i] = other.data[i];
+  }
 }
 
 template <typename T> auto
@@ -27,11 +48,6 @@ vector<T> :: end () -> T* {
 template <typename T> auto
 vector<T> :: size () -> size_t {
   return this->length;
-}
-
-template <typename T> auto
-vector<T> :: operator[] (size_t n) -> T& {
-  return this->data[n];
 }
 
 template <typename T> auto

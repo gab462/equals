@@ -14,11 +14,6 @@ string_view :: string_view (string_view s, size_t n): ptr {s.ptr}, length {n} {}
 string_view :: string_view (const char* s, size_t n): ptr {s}, length {n} {}
 
 auto
-string_view :: size () -> size_t {
-  return this->length;
-}
-
-auto
 string_view :: operator== (string_view other) -> bool {
   if (this->length != other.length)
     return false;
@@ -29,6 +24,11 @@ string_view :: operator== (string_view other) -> bool {
   }
 
   return true;
+}
+
+auto
+string_view :: size () -> size_t {
+  return this->length;
 }
 
 auto
@@ -89,7 +89,7 @@ string_view :: trim () -> string_view {
   if (left == -1) // All whitespace
     return {this->ptr, 0};
 
-  size_t right;
+  size_t right = 0;
 
   for (size_t i = 0; i < this->length; ++i) {
     if (!is_whitespace (this->ptr[this->length - 1 - i])) {
@@ -186,6 +186,16 @@ string :: string (size_t n) {
 
 string :: ~ string () {
   delete [] this->data;
+}
+
+auto
+string :: operator= (string const& other) -> void {
+  delete [] this->data;
+
+  this->length = other.length;
+  this->data = new char[other.length];
+
+  this->copy (other);
 }
 
 auto

@@ -10,11 +10,12 @@ struct list {
   list ();
   ~ list ();
 
+  auto operator[] (size_t n) -> T&;
+
   auto begin () -> list_iterator<T>;
   auto end () -> list_iterator<T>;
 
   auto size () -> size_t;
-  auto operator[] (size_t n) -> T&;
   auto in (size_t n) -> optional<T>;
   auto node (size_t n) -> optional<list_node<T>*>;
   auto append (T obj) -> T&;
@@ -34,5 +35,5 @@ struct list_iterator {
 
   auto operator++ () -> list_iterator<T>;
   auto operator* () -> T&;
-  auto operator!= (list_iterator<T>& other) -> bool;
+  auto operator!= (list_iterator<T> const& other) -> bool;
 };

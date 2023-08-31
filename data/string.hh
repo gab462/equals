@@ -10,8 +10,9 @@ struct string_view {
   string_view (string_view s, size_t n);
   string_view (const char* s, size_t n);
 
-  auto size () -> size_t;
   auto operator== (string_view other) -> bool;
+
+  auto size () -> size_t;
   auto contains (string_view other) -> bool;
   auto split (char sep) -> list<string_view>;
   auto trim () -> string_view;
@@ -28,8 +29,10 @@ struct string: string_view {
   string (const char* s);
   string (string& other);
   string (string_view other);
-  string (size_t n);
+  explicit string (size_t n);
   ~ string ();
+
+  auto operator= (string const& other) -> void;
 
   auto copy (string_view src, size_t offset = 0) -> void;
 };
