@@ -91,6 +91,8 @@ list<T> :: insert (size_t n, T obj) -> T& {
 
   node->next = new list_node<T> {obj, node->next};
 
+  ++this->length;
+
   return node->next->data;
 }
 

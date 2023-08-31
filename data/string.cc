@@ -185,7 +185,7 @@ string :: string (size_t n) {
 }
 
 string :: ~ string () {
-  delete this->data;
+  delete [] this->data;
 }
 
 auto
