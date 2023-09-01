@@ -20,7 +20,7 @@ main (int argc, char** argv) -> int {
     eq::build_config build {"build.cc"};
 
     build.flags.append ("-o");
-    build.flags.append ("build");
+    build.flags.append ("bld");
 
     build.run ();
   }

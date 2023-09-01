@@ -2,7 +2,10 @@
 
 namespace eq {
 
-#include "command/build_config.hh"
-#include "command/build_config.cc"
+#include "build/command.hh"
+#include "build/build_config.hh"
+
+#include "build/command.cc"
+#include "build/build_config.cc"
 
 }
