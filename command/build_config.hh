@@ -8,17 +8,17 @@ struct command {
   auto execute () -> void;
 };
 
-struct build_config {
-  const char* compiler;
-  list<const char*> files;
-  list<string> flags;
+struct build_config { // Unibuild
+  const char* compiler = "c++";
+  const char* standard = "17";
+  const char* entry;
+  list<const char*> flags;
   list<string> includes;
   list<string> libraries;
   list<string> macros;
 
-  auto set_compiler (const char* cxx) -> void;
-  auto add_file (const char* file);
-  auto add_flag (string_view flag) -> void;
+  build_config (const char* file);
+
   auto include (string_view directory) -> void;
   auto link (string_view library) -> void;
   auto define (string_view macro) -> void;
