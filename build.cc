@@ -34,7 +34,7 @@ main (int argc, char** argv) -> int {
     }.execute ();
 
   if (type == "valgrind")
-    eq::command {"valgrind", "./a.out", "one,two", "-o", "three"}.execute();
+    eq::command {"valgrind", "./a.out", "one,two", "-o", "three"}.execute ();
 
   return 0;
 }

@@ -48,7 +48,7 @@ build_config :: run () -> void {
   string std =
     string {"-std=c++"}
     .append (this->standard)
-    .with_null();
+    .with_null ();
 
   v[i++] = std.data;
 
@@ -73,5 +73,5 @@ build_config :: run () -> void {
   c.args.resize (v.size ());
   c.args = v;
 
-  c.execute();
+  c.execute ();
 }

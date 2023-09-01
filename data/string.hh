@@ -21,6 +21,7 @@ struct string_view {
 
   auto to_int () -> int;
   // static auto from_int (int s) -> string;
+  // static auto join (vector<string_view> strings, optional<char> sep = {}) -> string;
 };
 
 struct string: string_view {
