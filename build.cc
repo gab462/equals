@@ -10,14 +10,22 @@ main (int argc, char** argv) -> int {
 
   args.parse (argc, argv);
 
-  if (type == "build") {
-    eq::build_config build {"examples.cc"};
+  eq::build_config build {"examples.cc"};
 
+  build.compiler = "musl-gcc";
+
+  build.flags.append ("-fno-rtti");
+  build.flags.append ("-fno-exceptions");
+  build.flags.append ("-static");
+
+  build.define ("_NO_LIBCPP");
+
+  if (type == "build") {
     build.run ();
   }
 
   if (type == "self") {
-    eq::build_config build {"build.cc"};
+    build.entry = "build.cc";
 
     build.flags.append ("-o");
     build.flags.append ("bld");
