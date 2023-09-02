@@ -7,7 +7,7 @@ struct build_config { // Unibuild
   list<string> libraries;
   list<string> macros;
 
-  build_config (const char* file);
+  explicit build_config (const char* file);
 
   auto include (string_view directory) -> void;
   auto link (string_view library) -> void;

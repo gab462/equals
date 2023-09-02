@@ -35,7 +35,7 @@ argument_parser :: parse (int argc, char** argv) -> void {
     string_view arg = argv[i];
 
     if (arg.ptr[0] != '-') {
-      assert (input_n < this->inputs.size () && "Too many arguments");
+      assert (input_n < this->inputs.size ());
 
       this->inputs[input_n++] = arg;
     } else {
@@ -57,7 +57,7 @@ argument_parser :: parse (int argc, char** argv) -> void {
 
       for (auto& option: this->int_options) {
         if (arg.ptr[1] == option.option) {
-          assert (i + 1 < argc && "Option provided without value");
+          assert (i + 1 < argc);
 
           string_view value = argv[++i];
           option.data = value.to_int ();
@@ -72,7 +72,7 @@ argument_parser :: parse (int argc, char** argv) -> void {
 
       for (auto& option: this->string_options) {
         if (arg.ptr[1] == option.option) {
-          assert (i + 1 < argc && "Option provided without value");
+          assert (i + 1 < argc);
 
           string_view value = argv[++i];
           option.data = value;
@@ -83,9 +83,9 @@ argument_parser :: parse (int argc, char** argv) -> void {
       }
 
       // Option in none of the lists, invalid
-      assert (processed && "Unknown option");
+      assert (processed);
     }
   }
 
-  assert (input_n == this->inputs.size () && "Not enough arguments");
+  assert (input_n == this->inputs.size ());
 }

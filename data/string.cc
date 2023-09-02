@@ -145,7 +145,7 @@ string_view :: to_int () -> int {
   for (size_t i = 0; i < number.length; ++i) {
     auto c = number.ptr[number.length - 1 - i];
 
-    assert (c >= '0' && c <= '9' && "Invalid character");
+    assert (c >= '0' && c <= '9');
 
     r += (c - '0') * power (10, i);
   }
@@ -200,7 +200,7 @@ string :: operator= (string const& other) -> void {
 
 auto
 string :: copy (string_view other, size_t offset) -> void {
-  assert (this->length >= other.length + offset && "Not enough space");
+  assert (this->length >= other.length + offset);
 
   for (size_t i = 0; i < other.length; ++i)
     this->data[i + offset] = other.ptr[i];

@@ -12,7 +12,7 @@ template <typename T> auto
 list<T> :: operator[] (size_t n) -> T& {
   auto elem = this->node (n);
 
-  assert (elem.ok && "Invalid index");
+  assert (elem.ok);
 
   auto nd = *elem;
 
@@ -85,7 +85,7 @@ list<T> :: insert (size_t n, T obj) -> T& {
 
   auto elem = this->node (n - 1);
 
-  assert (elem.ok && "Attempt to insert in invalid index");
+  assert (elem.ok);
 
   auto nd = *elem;
 
@@ -98,7 +98,7 @@ list<T> :: insert (size_t n, T obj) -> T& {
 
 template <typename T> auto
 list<T> :: remove (size_t n) -> void {
-  assert (this->length > 0 && "Attempt to remove empty list");
+  assert (this->length > 0);
 
   if (n == 0) {
     auto nd = this->head;
@@ -119,11 +119,11 @@ list<T> :: remove (size_t n) -> void {
 
   auto elem = this->node (n - 1);
 
-  assert (elem.ok && "Attempt to remove invalid list index");
+  assert (elem.ok);
 
   auto nd = *elem;
 
-  assert (nd->next != nullptr && "Attempt to remove invalid list index");
+  assert (nd->next != nullptr);
 
   auto removed = nd->next;
 

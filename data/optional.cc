@@ -6,7 +6,7 @@ optional<T> :: optional (): ok {false}, data {} {}
 
 template <typename T> auto
 optional<T> :: operator* () -> T& {
-  assert (this->ok && "Trying to access empty optional");
+  assert (this->ok);
 
   return this->data;
 }
