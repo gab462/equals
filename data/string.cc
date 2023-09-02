@@ -185,12 +185,12 @@ string :: string (size_t n) {
 }
 
 string :: ~ string () {
-  delete [] this->data;
+  delete[] this->data;
 }
 
 auto
 string :: operator= (string const& other) -> void {
-  delete [] this->data;
+  delete[] this->data;
 
   this->length = other.length;
   this->data = new char[other.length];

@@ -18,7 +18,7 @@ main (int argc, char** argv) -> int {
   build.flags.append ("-fno-exceptions");
   build.flags.append ("-static");
 
-  build.define ("_NO_LIBCPP");
+  build.define ("NO_LIBCPP");
 
   if (type == "build") {
     build.run ();

@@ -18,7 +18,7 @@ vector<T> :: vector (vector& other): length {other.length} {
 
 template <typename T>
 vector<T> :: ~ vector () {
-  delete [] this->data;
+  delete[] this->data;
 }
 
 template <typename T> auto
@@ -69,7 +69,7 @@ vector<T> :: resize (size_t n) -> void {
       tmp[i] = this->data[i];
     }
 
-    delete [] this->data;
+    delete[] this->data;
   }
 
   this->data = tmp;
