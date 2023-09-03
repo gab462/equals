@@ -38,7 +38,8 @@ main (int argc, char** argv) -> int {
       "cppcheck", "examples.cc", "--enable=all",
       "--suppress=noExplicitConstructor",
       "--suppress=useStlAlgorithm",
-      "--suppress=missingIncludeSystem"
+      "-I/usr/include/x86_64-linux-musl",
+      "-D_DEFAULT_SOURCE"
     }.execute ();
 
   if (type == "valgrind")
