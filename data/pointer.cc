@@ -1,4 +1,10 @@
 template <typename T>
+template <typename ...A>
+pointer<T> :: pointer (A... args) {
+  this->data = new T {args...};
+}
+
+template <typename T>
 pointer<T> :: pointer (T obj) {
   this->data = new T {obj};
 }
