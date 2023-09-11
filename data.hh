@@ -39,7 +39,7 @@ operator delete[] (void* ptr, size_t n) -> void {
 
 #endif
 
-namespace eq {
+namespace core {
 
 #include "data/ptr.hh"
 #include "data/opt.hh"

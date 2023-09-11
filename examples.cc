@@ -4,7 +4,7 @@
 
 auto
 main (int argc, char** argv) -> int {
-  eq::arg_parser args;
+  core::arg_parser args;
 
   auto& input = args.input ();
   auto& h = args.flag ('h');
@@ -13,32 +13,32 @@ main (int argc, char** argv) -> int {
 
   args.parse (argc, argv);
 
-  eq::println ("input:", input);
-  eq::println ("-h:", h);
-  eq::println ("-c:", c);
-  eq::println ("-o:", so);
+  core::println ("input:", input);
+  core::println ("-h:", h);
+  core::println ("-c:", c);
+  core::println ("-o:", so);
 
-  eq::println ();
+  core::println ();
 
-  eq::str s = "Hello, ";
+  core::str s = "Hello, ";
 
-  eq::str s2 = s.append ("World!");
+  core::str s2 = s.append ("World!");
 
-  eq::println (s2, s2.length);
+  core::println (s2, s2.length);
 
-  eq::println ();
+  core::println ();
 
-  eq::println ("equal:", s2 == input);
-  eq::println ("contains:", s2.contains (input));
+  core::println ("equal:", s2 == input);
+  core::println ("contains:", s2.contains (input));
 
-  eq::println ();
+  core::println ();
 
   for (auto s3: input.split (','))
-    eq::println ("split:", s3.trim ());
+    core::println ("split:", s3.trim ());
 
-  eq::println ();
+  core::println ();
 
-  eq::lst<int> l;
+  core::lst<int> l;
 
   l.append (0);
   l.append (1);
@@ -48,32 +48,32 @@ main (int argc, char** argv) -> int {
   l.insert (1, 1);
 
   for (auto& e: l) {
-    eq::println ("l:", e);
+    core::println ("l:", e);
   }
 
-  eq::println ();
+  core::println ();
 
-  eq::vec<int> v {0, 1, 2};
+  core::vec<int> v {0, 1, 2};
 
   for (auto& e: v) {
-    eq::println ("v:", e);
+    core::println ("v:", e);
   }
 
-  eq::println ();
+  core::println ();
 
-  eq::arr<int, 3> a {0, 1, 2};
+  core::arr<int, 3> a {0, 1, 2};
 
   for (auto& e: a) {
-    eq::println ("a:", e);
+    core::println ("a:", e);
   }
 
-  eq::println ();
+  core::println ();
 
-  eq::ptr<int> i {3};
+  core::ptr<int> i {3};
 
-  eq::println ("i:", *i);
+  core::println ("i:", *i);
 
-  eq::opt<int> o = 4;
+  core::opt<int> o = 4;
 
-  eq::println ("o:", *o);
+  core::println ("o:", *o);
 }

@@ -1,6 +1,6 @@
 #include <unistd.h>
 
-namespace eq {
+namespace core {
 
 #include "build/cmd.hh"
 #include "build/build_config.hh"

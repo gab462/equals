@@ -4,13 +4,13 @@
 
 auto
 main (int argc, char** argv) -> int {
-  eq::arg_parser args;
+  core::arg_parser args;
 
   auto& type = args.string_option ('t', "build");
 
   args.parse (argc, argv);
 
-  eq::build_config build {"examples.cc"};
+  core::build_config build {"examples.cc"};
 
   build.compiler = "musl-gcc";
 
@@ -34,7 +34,7 @@ main (int argc, char** argv) -> int {
   }
 
   if (type == "check")
-    eq::cmd {
+    core::cmd {
       "cppcheck", "examples.cc", "--enable=all",
       "--suppress=noExplicitConstructor",
       "--suppress=useStlAlgorithm",
@@ -43,7 +43,7 @@ main (int argc, char** argv) -> int {
     }.execute ();
 
   if (type == "valgrind")
-    eq::cmd {"valgrind", "./a.out", "one,two", "-o", "three"}.execute ();
+    core::cmd {"valgrind", "./a.out", "one,two", "-o", "three"}.execute ();
 
   return 0;
 }
