@@ -1,20 +1,20 @@
-string_view :: string_view (): ptr {nullptr}, length {0} {}
+str_view :: str_view (): ptr {nullptr}, length {0} {}
 
-string_view :: string_view (const char* s): ptr {s} {
+str_view :: str_view (const char* s): ptr {s} {
   this->length = 0;
 
   while (*s++ != '\0')
     ++this->length;
 }
 
-string_view :: string_view (string& s): ptr {s.data}, length {s.length} {}
+str_view :: str_view (str& s): ptr {s.data}, length {s.length} {}
 
-string_view :: string_view (string_view s, size_t n): ptr {s.ptr}, length {n} {}
+str_view :: str_view (str_view s, size_t n): ptr {s.ptr}, length {n} {}
 
-string_view :: string_view (const char* s, size_t n): ptr {s}, length {n} {}
+str_view :: str_view (const char* s, size_t n): ptr {s}, length {n} {}
 
 auto
-string_view :: operator== (string_view other) -> bool {
+str_view :: operator== (str_view other) -> bool {
   if (this->length != other.length)
     return false;
 
@@ -27,12 +27,12 @@ string_view :: operator== (string_view other) -> bool {
 }
 
 auto
-string_view :: size () -> size_t {
+str_view :: size () -> size_t {
   return this->length;
 }
 
 auto
-string_view :: contains (string_view other) -> bool {
+str_view :: contains (str_view other) -> bool {
   size_t match = 0;
 
   for (size_t i = 0; i < this->length; ++i) {
@@ -50,9 +50,9 @@ string_view :: contains (string_view other) -> bool {
 }
 
 auto
-string_view :: split (char sep) -> list<string_view> {
+str_view :: split (char sep) -> lst<str_view> {
   size_t start = 0;
-  list<string_view> res;
+  lst<str_view> res;
 
   for (size_t i = 0; i < this->length; ++i) {
     if (this->ptr[i] == sep) {
@@ -69,7 +69,7 @@ string_view :: split (char sep) -> list<string_view> {
 }
 
 auto
-string_view :: trim () -> string_view {
+str_view :: trim () -> str_view {
   if (this->length == 0)
     return *this;
 
@@ -102,8 +102,8 @@ string_view :: trim () -> string_view {
 }
 
 auto
-string_view :: append (string_view other) -> string {
-  string s {this->length + other.length};
+str_view :: append (str_view other) -> str {
+  str s {this->length + other.length};
 
   s.copy (*this);
   s.copy (other, this->length);
@@ -112,8 +112,8 @@ string_view :: append (string_view other) -> string {
 }
 
 auto
-string_view :: with_null () -> string {
-  string s {this->length + 1};
+str_view :: with_null () -> str {
+  str s {this->length + 1};
 
   s.copy (*this);
 
@@ -123,7 +123,7 @@ string_view :: with_null () -> string {
 }
 
 auto
-string_view :: to_int () -> int {
+str_view :: to_int () -> int {
   auto power = [] (int n, int to) {
     if (to == 0)
       return 1;
@@ -137,8 +137,8 @@ string_view :: to_int () -> int {
     return res;
   };
 
-  // If minus at beginning, exclude from string
-  auto number = this->ptr[0] == '-' ? string_view {this->ptr + 1, this->length - 1} : *this;
+  // If minus at beginning, exclude from str
+  auto number = this->ptr[0] == '-' ? str_view {this->ptr + 1, this->length - 1} : *this;
 
   int r = 0;
 
@@ -157,13 +157,13 @@ string_view :: to_int () -> int {
   return r;
 }
 
-string :: string (const char *s): string_view {s} {
+str :: str (const char *s): str_view {s} {
   this->data = new char[this->length];
   this->ptr = this->data;
   this->copy (s);
 }
 
-string :: string (string& other): string_view {other} {
+str :: str (str& other): str_view {other} {
   // Copy data instead of pointer
   this->data = new char[other.length];
   this->ptr = this->data;
@@ -171,25 +171,25 @@ string :: string (string& other): string_view {other} {
   this->copy (other);
 }
 
-string :: string (string_view other): string_view {other} {
+str :: str (str_view other): str_view {other} {
   this->data = new char[other.length];
   this->ptr = this->data;
 
   this->copy (other);
 }
 
-string :: string (size_t n) {
+str :: str (size_t n) {
   this->data = new char[n];
   this->ptr = this->data;
   this->length = n;
 }
 
-string :: ~ string () {
+str :: ~ str () {
   delete[] this->data;
 }
 
 auto
-string :: operator= (string const& other) -> void {
+str :: operator= (str const& other) -> void {
   delete[] this->data;
 
   this->length = other.length;
@@ -199,7 +199,7 @@ string :: operator= (string const& other) -> void {
 }
 
 auto
-string :: copy (string_view other, size_t offset) -> void {
+str :: copy (str_view other, size_t offset) -> void {
   assert (this->length >= other.length + offset);
 
   for (size_t i = 0; i < other.length; ++i)

@@ -41,18 +41,18 @@ operator delete[] (void* ptr, size_t n) -> void {
 
 namespace eq {
 
-#include "data/pointer.hh"
-#include "data/optional.hh"
-#include "data/array.hh"
-#include "data/vector.hh"
-#include "data/list.hh"
-#include "data/string.hh"
+#include "data/ptr.hh"
+#include "data/opt.hh"
+#include "data/arr.hh"
+#include "data/vec.hh"
+#include "data/lst.hh"
+#include "data/str.hh"
 
-#include "data/pointer.cc"
-#include "data/optional.cc"
-#include "data/array.cc"
-#include "data/vector.cc"
-#include "data/list.cc"
-#include "data/string.cc"
+#include "data/ptr.cc"
+#include "data/opt.cc"
+#include "data/arr.cc"
+#include "data/vec.cc"
+#include "data/lst.cc"
+#include "data/str.cc"
 
 }

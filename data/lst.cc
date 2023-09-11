@@ -1,72 +1,58 @@
 template <typename T>
-list<T> :: list (): head {nullptr}, tail {nullptr}, length {0} {}
+lst<T> :: lst (): head {nullptr}, tail {nullptr}, length {0} {}
 
 template <typename T>
-list<T> :: ~ list () {
+lst<T> :: ~ lst () {
   while (this->length > 0) {
     this->remove (0); // FIXME: slow
   }
 }
 
 template <typename T> auto
-list<T> :: operator[] (size_t n) -> T& {
+lst<T> :: operator[] (size_t n) -> T& {
   auto elem = this->node (n);
 
-  assert (elem.ok);
+  assert (elem != nullptr);
 
-  auto nd = *elem;
-
-  return nd->data;
+  return elem->data;
 }
 
 template <typename T> auto
-list<T> :: begin () -> list_iterator<T> {
-  return list_iterator<T> {this->head};
+lst<T> :: begin () -> lst_iter<T> {
+  return lst_iter<T> {this->head};
 }
 
 template <typename T> auto
-list<T> :: end () -> list_iterator<T> {
-  return list_iterator<T> {nullptr};
+lst<T> :: end () -> lst_iter<T> {
+  return lst_iter<T> {nullptr};
 }
 
 template <typename T> auto
-list<T> :: size () -> size_t {
+lst<T> :: size () -> size_t {
   return this->length;
 }
 
 template <typename T> auto
-list<T> :: in (size_t n) -> optional<T> {
-  auto elem = this->node (n);
-
-  if (elem.ok == false)
-    return {};
-
-  auto nd = *elem;
-
-  return nd.data;
-}
-
-template <typename T> auto
-list<T> :: node (size_t n) -> optional<list_node<T>*> {
+lst<T> :: node (size_t n) -> lst_node<T>* {
   auto elem = this->head;
 
   while (n-- > 0) {
     elem = elem->next;
 
     if (elem == nullptr)
-      return {};
+      return nullptr;
   }
 
   return elem;
 }
 
 template <typename T> auto
-list<T> :: append (T obj) -> T& {
+lst<T> :: append (T obj) -> T& {
   if (this->length == 0) {
-    this->head = new list_node<T> {obj, nullptr};
+    this->head = new lst_node<T> {obj, nullptr};
     this->tail = this->head;
   } else {
-    this->tail->next = new list_node<T> {obj, nullptr};
+    this->tail->next = new lst_node<T> {obj, nullptr};
     this->tail = this->tail->next;
   }
 
@@ -76,28 +62,26 @@ list<T> :: append (T obj) -> T& {
 }
 
 template <typename T> auto
-list<T> :: insert (size_t n, T obj) -> T& {
+lst<T> :: insert (size_t n, T obj) -> T& {
   if (n == 0) {
-    this->head = new list_node<T> {obj, this->head};
+    this->head = new lst_node<T> {obj, this->head};
 
     return this->head->data;
   }
 
   auto elem = this->node (n - 1);
 
-  assert (elem.ok);
+  assert (elem != nullptr);
 
-  auto nd = *elem;
-
-  nd->next = new list_node<T> {obj, nd->next};
+  elem->next = new lst_node<T> {obj, elem->next};
 
   ++this->length;
 
-  return nd->next->data;
+  return elem->next->data;
 }
 
 template <typename T> auto
-list<T> :: remove (size_t n) -> void {
+lst<T> :: remove (size_t n) -> void {
   assert (this->length > 0);
 
   if (n == 0) {
@@ -119,15 +103,12 @@ list<T> :: remove (size_t n) -> void {
 
   auto elem = this->node (n - 1);
 
-  assert (elem.ok);
+  assert (elem != nullptr);
+  assert (elem->next != nullptr);
 
-  auto nd = *elem;
+  auto removed = elem->next;
 
-  assert (nd->next != nullptr);
-
-  auto removed = nd->next;
-
-  nd->next = removed->next;
+  elem->next = removed->next;
 
   delete removed;
 
@@ -135,18 +116,18 @@ list<T> :: remove (size_t n) -> void {
 }
 
 template <typename T> auto
-list_iterator<T> :: operator++ () -> list_iterator<T> {
+lst_iter<T> :: operator++ () -> lst_iter<T> {
   this->node = this->node->next;
 
   return *this;
 }
 
 template <typename T> auto
-list_iterator<T> :: operator* () -> T& {
+lst_iter<T> :: operator* () -> T& {
   return this->node->data;
 }
 
 template <typename T> auto
-list_iterator<T> :: operator!= (list_iterator<T> const& other) -> bool {
+lst_iter<T> :: operator!= (lst_iter<T> const& other) -> bool {
   return this->node != other.node;
 }

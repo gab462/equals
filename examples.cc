@@ -1,10 +1,10 @@
 #include "data.hh"
-#include "arguments.hh"
+#include "args.hh"
 #include "print.hh"
 
 auto
 main (int argc, char** argv) -> int {
-  eq::argument_parser args;
+  eq::arg_parser args;
 
   auto& input = args.input ();
   auto& h = args.flag ('h');
@@ -20,9 +20,9 @@ main (int argc, char** argv) -> int {
 
   eq::println ();
 
-  eq::string s = "Hello, ";
+  eq::str s = "Hello, ";
 
-  eq::string s2 = s.append ("World!");
+  eq::str s2 = s.append ("World!");
 
   eq::println (s2, s2.length);
 
@@ -38,7 +38,7 @@ main (int argc, char** argv) -> int {
 
   eq::println ();
 
-  eq::list<int> l;
+  eq::lst<int> l;
 
   l.append (0);
   l.append (1);
@@ -53,7 +53,7 @@ main (int argc, char** argv) -> int {
 
   eq::println ();
 
-  eq::vector<int> v {0, 1, 2};
+  eq::vec<int> v {0, 1, 2};
 
   for (auto& e: v) {
     eq::println ("v:", e);
@@ -61,7 +61,7 @@ main (int argc, char** argv) -> int {
 
   eq::println ();
 
-  eq::array<int, 3> a {0, 1, 2};
+  eq::arr<int, 3> a {0, 1, 2};
 
   for (auto& e: a) {
     eq::println ("a:", e);
@@ -69,11 +69,11 @@ main (int argc, char** argv) -> int {
 
   eq::println ();
 
-  eq::pointer<int> i {3};
+  eq::ptr<int> i {3};
 
   eq::println ("i:", *i);
 
-  eq::optional<int> o = 4;
+  eq::opt<int> o = 4;
 
   eq::println ("o:", *o);
 }

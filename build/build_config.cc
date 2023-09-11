@@ -6,23 +6,23 @@ build_config :: build_config (const char* file): entry {file} {
 }
 
 auto
-build_config :: include (string_view directory) -> void {
-  includes.append (string {"-I"}.append (directory).with_null ());
+build_config :: include (str_view directory) -> void {
+  includes.append (str {"-I"}.append (directory).with_null ());
 }
 
 auto
-build_config :: link (string_view library) -> void {
-  libraries.append (string {"-l"}.append (library).with_null ());
+build_config :: link (str_view library) -> void {
+  libraries.append (str {"-l"}.append (library).with_null ());
 }
 
 auto
-build_config :: define (string_view macro) -> void {
-  macros.append (string {"-D"}.append (macro).with_null ());
+build_config :: define (str_view macro) -> void {
+  macros.append (str {"-D"}.append (macro).with_null ());
 }
 
 auto
 build_config :: run () -> void {
-  vector<const char*> v;
+  vec<const char*> v;
 
   v.resize (4 // compiler, standard, entry and nullptr
             + this->flags.size ()
@@ -34,8 +34,8 @@ build_config :: run () -> void {
 
   v[i++] = this->compiler;
 
-  string std =
-    string {"-std=c++"}
+  str std =
+    str {"-std=c++"}
     .append (this->standard)
     .with_null ();
 
@@ -57,7 +57,7 @@ build_config :: run () -> void {
 
   v[i] = nullptr;
 
-  command c;
+  cmd c;
   c.program = this->compiler;
   c.args.resize (v.size ());
   c.args = v;

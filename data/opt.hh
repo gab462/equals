@@ -1,10 +1,10 @@
 template <typename T>
-struct optional {
+struct opt {
   bool ok;
   T data;
 
-  optional (T obj);
-  optional ();
+  opt (T obj);
+  opt ();
 
   auto operator* () -> T&;
 };

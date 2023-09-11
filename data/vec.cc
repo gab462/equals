@@ -1,6 +1,6 @@
 template <typename T>
 template <typename ...A>
-vector<T> :: vector (A... values) {
+vec<T> :: vec (A... values) {
   this->length = sizeof ...(values);
 
   if (this->length > 0)
@@ -10,24 +10,24 @@ vector<T> :: vector (A... values) {
 }
 
 template <typename T>
-vector<T> :: vector (vector& other): length {other.length} {
+vec<T> :: vec (vec& other): length {other.length} {
   for (size_t i = 0; i < other.length; ++i) {
     this->data[i] = other.data[i];
   }
 }
 
 template <typename T>
-vector<T> :: ~ vector () {
+vec<T> :: ~ vec () {
   delete[] this->data;
 }
 
 template <typename T> auto
-vector<T> :: operator[] (size_t n) -> T& {
+vec<T> :: operator[] (size_t n) -> T& {
   return this->data[n];
 }
 
 template <typename T> auto
-vector<T> :: operator= (vector const& other) -> void {
+vec<T> :: operator= (vec const& other) -> void {
   this->resize (other.length);
 
   for (size_t i = 0; i < other.length; ++i) {
@@ -36,30 +36,22 @@ vector<T> :: operator= (vector const& other) -> void {
 }
 
 template <typename T> auto
-vector<T> :: begin () -> T* {
+vec<T> :: begin () -> T* {
   return &this->data[0];
 }
 
 template <typename T> auto
-vector<T> :: end () -> T* {
+vec<T> :: end () -> T* {
   return &this->data[this->length];
 }
 
 template <typename T> auto
-vector<T> :: size () -> size_t {
+vec<T> :: size () -> size_t {
   return this->length;
 }
 
 template <typename T> auto
-vector<T> :: in (size_t n) -> optional<T> {
-  if (n >= this->length)
-    return {};
-
-  return this->data[n];
-}
-
-template <typename T> auto
-vector<T> :: resize (size_t n) -> void {
+vec<T> :: resize (size_t n) -> void {
   T* tmp = new T[n];
 
   if (this->data != nullptr) {

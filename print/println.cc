@@ -5,7 +5,7 @@ print (int value) -> void {
 }
 
 auto
-print (string_view s) -> void {
+print (str_view s) -> void {
   write (STDOUT_FILENO, s.ptr, s.length);
   write (STDOUT_FILENO, " ", 1);
 }

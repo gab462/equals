@@ -1,10 +1,10 @@
 #include "data.hh"
 #include "build.hh"
-#include "arguments.hh"
+#include "args.hh"
 
 auto
 main (int argc, char** argv) -> int {
-  eq::argument_parser args;
+  eq::arg_parser args;
 
   auto& type = args.string_option ('t', "build");
 
@@ -34,7 +34,7 @@ main (int argc, char** argv) -> int {
   }
 
   if (type == "check")
-    eq::command {
+    eq::cmd {
       "cppcheck", "examples.cc", "--enable=all",
       "--suppress=noExplicitConstructor",
       "--suppress=useStlAlgorithm",
@@ -43,7 +43,7 @@ main (int argc, char** argv) -> int {
     }.execute ();
 
   if (type == "valgrind")
-    eq::command {"valgrind", "./a.out", "one,two", "-o", "three"}.execute ();
+    eq::cmd {"valgrind", "./a.out", "one,two", "-o", "three"}.execute ();
 
   return 0;
 }

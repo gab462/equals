@@ -3,7 +3,7 @@
 
 namespace eq {
 
-#include "arguments/argument_parser.hh"
-#include "arguments/argument_parser.cc"
+#include "args/arg_parser.hh"
+#include "args/arg_parser.cc"
 
 }
